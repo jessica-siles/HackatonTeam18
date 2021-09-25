@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "hackatong-14": {
+      "hosting": {
+        "hackaton": [
+          "hackatong-14"
+        ]
+      }
+    }
+  }
+}
