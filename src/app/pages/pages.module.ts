@@ -17,10 +17,6 @@ import { PagesComponent } from './components/pages/pages.component';
     BrowserModule,
     CommonModule,
     PagesRoutingModule
-  ],
-  exports: [
-    CommonModule,
-    PagesRoutingModule
   ]
 })
 export class PagesModule { }

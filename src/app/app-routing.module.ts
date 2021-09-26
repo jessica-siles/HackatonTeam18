@@ -4,9 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { NopagefoundComponent } from './core/components/nopagefound/nopagefound.component';
 
 const routes: Routes = [
-  { 
+  {
     path: '',
-    loadChildren: './pages/pages.module#PagesModule'
+    loadChildren:()=> import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: '**',
