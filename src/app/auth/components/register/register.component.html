@@ -2,7 +2,7 @@
  <div class="fondo">
      <div class="card-body">
 
-         <form 
+         <form
                  id="loginform"
                  autocomplete="off"
                  [formGroup]="registerForm"
@@ -14,7 +14,7 @@
                      <input class="form-control"
                              type="text"
                              placeholder="Usuario"
-                             formControlName="Usuario">
+                             formControlName="username">
                  </div>
              </div>
              <div class="form-group ">
@@ -22,7 +22,7 @@
                      <input class="form-control"
                              type="text"
                              placeholder="Linkedin"
-                             formControlName="Linkedin">
+                             formControlName="linkedin">
                  </div>
              </div>
              <div class="form-group ">
@@ -30,7 +30,7 @@
                   <input class="form-control"
                           type="text"
                           placeholder="Pais"
-                          formControlName="Pais">
+                          formControlName="country">
               </div>
           </div>
           <div class="form-group ">
@@ -38,7 +38,7 @@
                <input class="form-control"
                        type="text"
                        placeholder="Repositorio"
-                       formControlName="Repositorio">
+                       formControlName="repositorio">
            </div>
        </div>
              <div class="form-group ">
@@ -62,7 +62,7 @@
                     <textarea class="form-control"
                             type="textarea"
                             placeholder="Ingrese una breve descripcion"
-                            formControlName="descripcion"></textarea>
+                            formControlName="description"></textarea>
                 </div>
             </div>
              <div class="row">
@@ -70,7 +70,7 @@
 
                  <p *ngIf="campoNoValido('Usuario')">* El nombre es obligatorio</p>
                      <p *ngIf="contrasenasNoValidas()">* Las contraseñas deben de ser iguales</p>
-                     
+
 
                  </div>
              </div>
@@ -85,7 +85,7 @@
                      <p class="text-white">Already have an account? <a routerLink="/login" class="text-info m-l-5"><b>Acceder</b></a></p>
                  </div>
              </div>
-           
+
            </form>
      </div>
  </div>
