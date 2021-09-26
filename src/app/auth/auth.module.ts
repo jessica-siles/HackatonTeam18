@@ -4,10 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AuthRoutingModule } from './auth-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { UserService } from '../core/services/user.service';
 
 
 @NgModule({
@@ -20,7 +20,8 @@ import { UserService } from '../core/services/user.service';
     AuthRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
-  ],
+    FormsModule,
+    SharedModule
+  ]
 })
 export class AuthModule { }
