@@ -18,7 +18,8 @@ export class RegisterComponent {
     Linkedin : new FormControl(null, [Validators.required]),
     Repositorio: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
-    password2: new FormControl(null,[ Validators.required])
+    password2: new FormControl(null,[ Validators.required]),
+    descripcion: new FormControl(null,[ Validators.required])
     
   },
   
