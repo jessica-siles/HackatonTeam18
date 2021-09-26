@@ -6,8 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
+import { FirebaseService } from '../core/services/firebase.service';
+
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -22,6 +25,7 @@ import { RegisterComponent } from './components/register/register.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-  ]
+  ],
+  providers: [FirebaseService, AuthService]
 })
 export class AuthModule { }
