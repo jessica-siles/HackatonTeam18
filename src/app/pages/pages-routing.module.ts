@@ -11,7 +11,12 @@ const routes:Routes = [
     path: '',
     component: PagesComponent,
     //canActivate: [AuthGuard],
-    children:[       
+    children:[  
+      {
+        path: '',
+        redirectTo : 'usuario',
+        pathMatch : 'full'
+      },     
       {
         path: 'usuario',
         loadChildren: () => import('./components/usuario/usuario.module').then(m => m.UsuarioModule),
@@ -24,6 +29,7 @@ const routes:Routes = [
         path: '**',
         component: NopagefoundComponent
       },
+      
      
     ]
   },
