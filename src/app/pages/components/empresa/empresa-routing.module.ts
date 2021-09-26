@@ -5,10 +5,10 @@ import { MisBootcampsComponent } from './mis-bootcamps/mis-bootcamps.component';
 
 const routes: Routes = [
   {
-    path : 'empresa/bootcamps', component: BootcampsComponent
+    path : 'bootcamps', component: BootcampsComponent
   },
   {
-    path : 'empresa/mis-bootcamps', component: MisBootcampsComponent
+    path : 'mis-bootcamps', component: MisBootcampsComponent
   }
 ];
 

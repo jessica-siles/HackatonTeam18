@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { NopagefoundComponent } from '../core/components/nopagefound/nopagefound.component';
 
-import { PagesComponent } from './components/pages/pages.component';
+import { PagesComponent } from './pages.component';
 
 
 const routes:Routes = [
@@ -20,10 +21,10 @@ const routes:Routes = [
         loadChildren: () => import('./components/empresa/empresa.module').then(m => m.EmpresaModule),
       },
       {
-        path: '',
-        redirectTo : 'usuario',
-        pathMatch : 'full'
+        path: '**',
+        component: NopagefoundComponent
       },
+     
     ]
   },
 ]

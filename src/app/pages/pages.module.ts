@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { PagesRoutingModule } from './pages-routing.module';
-import { PagesComponent } from './components/pages/pages.component';
-
+import { PagesComponent } from './pages.component';
 
 @NgModule({
   declarations: [
