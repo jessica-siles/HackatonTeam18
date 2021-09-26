@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { PagesRoutingModule } from './pages-routing.module';
-import { PagesComponent } from './pages.component';
-import { BootcampsComponent } from './bootcamps/bootcamps.component';
-import { BrowserModule } from '@angular/platform-browser';
+
+import { BootcampsComponent } from './components/bootcamps/bootcamps.component';
+import { PagesComponent } from './components/pages/pages.component';
 
 
 @NgModule({

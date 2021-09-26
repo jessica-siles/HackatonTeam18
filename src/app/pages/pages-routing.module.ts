@@ -1,19 +1,27 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BootcampsComponent } from './bootcamps/bootcamps.component';
+import { AuthGuard } from '../auth/guards/auth.guard';
+
+import { BootcampsComponent } from './components/bootcamps/bootcamps.component';
+import { PagesComponent } from './components/pages/pages.component';
+
 
 const routes:Routes = [
-  { path: '', redirectTo:'bootcamps', pathMatch:'full'},
-
-  { path: 'bootcamps', component: BootcampsComponent, data: { titulo: 'Bootcamps' } },
-
-
+  {
+    path: '',
+    component: PagesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'bootcamps',
+        component: BootcampsComponent,
+      }
+    ]
+  },
 ]
 
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule]
