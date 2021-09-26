@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent {
 
   public formSubmitted: boolean = false;
+  validRoles = ['user', 'company']
 
   destroy$ = new Subject();
 
@@ -34,7 +35,9 @@ export class RegisterComponent {
       .pipe(
         takeUntil(this.destroy$)
       )
-      .subscribe( tipo => this.registerAs = tipo.as);
+      .subscribe( 
+        tipo => 
+          this.registerAs = this.validRoles.includes(tipo.as) ? tipo.as : 'user');
   }
 
     crearUsuario() {
@@ -45,7 +48,7 @@ export class RegisterComponent {
         return;
       }
       
-      this.authService.createAccount( {...this.registerForm.value, as:this.registerAs} );
+      this.authService.createAccount( {...this.registerForm.value, rol:this.registerAs} );
   
     }
 
