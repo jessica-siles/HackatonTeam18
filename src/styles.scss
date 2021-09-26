@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+.fondo{
+ background: #0f0c29;  /* fallback for old browsers */
+ background: -webkit-linear-gradient(to right, #0d0d0f, #1d1c27, #70014b);  /* Chrome 10-25, Safari 5.1-6 */
+ background: linear-gradient(to right, #0d0d0f, #1a1927, #70014b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ height: 100vh;
+}
+.titulo{
+ color:white
+
+}
+.boton{
+ background:#c40183;
+ color:white
+}
+input{
+ margin-top: 20px;
+  margin-bottom: 20px;
+}
+textarea{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
