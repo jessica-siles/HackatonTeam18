@@ -14,7 +14,7 @@ const routes:Routes = [
     children:[       
       {
         path: 'bootcamps',
-        component: BootcampsComponent,
+        loadChildren : ""
       }
     ]
   },

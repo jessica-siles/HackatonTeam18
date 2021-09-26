@@ -3,15 +3,12 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { PagesRoutingModule } from './pages-routing.module';
-
-import { BootcampsComponent } from './components/bootcamps/bootcamps.component';
 import { PagesComponent } from './components/pages/pages.component';
 
 
 @NgModule({
   declarations: [
-    PagesComponent,
-    BootcampsComponent
+    PagesComponent
   ],
   imports: [
     BrowserModule,
