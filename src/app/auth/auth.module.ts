@@ -18,10 +18,10 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     CommonModule,
     AuthRoutingModule,
+    SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
   ]
 })
 export class AuthModule { }
