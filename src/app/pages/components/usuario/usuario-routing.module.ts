@@ -5,10 +5,13 @@ import { MisInscripcionesComponent } from './mis-inscripciones/mis-inscripciones
 
 const routes: Routes = [
   {
-    path : 'usuario/bootcamps', component: BootcampsComponent
+    path : '', redirectTo : 'bootcamps', pathMatch : 'full'
   },
   {
-    path : 'usuario/mis-inscripciones', component: MisInscripcionesComponent
+    path : 'bootcamps', component: BootcampsComponent
+  },
+  {
+    path : 'mis-inscripciones', component: MisInscripcionesComponent
   }
 ];
 
