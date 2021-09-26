@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true
-    console.log(this.form.value);
     this.authService.loginUser(this.form.value);
     setTimeout(() => {
       this.loading = false
