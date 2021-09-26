@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prestart": "ts-node ./conf.env.ts",
-    "start": "ng serve",
-    "prebuild": "ts-node ./conf.env.ts",
-    "build": "ng build",
+    "config-env": "ts-node ./conf.env.ts",
+    "start": "npm run config-env -- --environment=dev && ng serve",
+    "build": "npm run config-env -- --environment=prod && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
