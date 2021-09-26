@@ -11,7 +11,7 @@ const routes:Routes = [
     path: '',
     component: PagesComponent,
     canActivate: [AuthGuard],
-    children: [
+    children:[       
       {
         path: 'bootcamps',
         component: BootcampsComponent,
