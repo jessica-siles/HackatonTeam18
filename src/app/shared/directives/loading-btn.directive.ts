@@ -9,9 +9,9 @@ export class LoadingBtnDirective implements OnChanges {
   @Input() disabled!: boolean;
   @Input() loadingFlag!: boolean;
 
-  constructor(private elem: ElementRef) {
-  }
-  ngOnChanges(changes: any): void {
+  constructor(private elem: ElementRef) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.condition && changes.condition.currentValue) {
       console.log({
         cha: changes.condition,
@@ -19,13 +19,11 @@ export class LoadingBtnDirective implements OnChanges {
       });
       this.loadingFlag = changes.condition.currentValue;
     }
-    this.elem.nativeElement.innerText = (this.loadingFlag) ? this.textLoading : this.textInitial;
+    this.elem.nativeElement.textContent = (this.loadingFlag) ? this.textLoading : this.textInitial;
     if (!this.loadingFlag) {
       console.log(this.loadingFlag);
       this.elem.nativeElement.disabled = !!(this.disabled);
     }
-
-
   }
 
 }

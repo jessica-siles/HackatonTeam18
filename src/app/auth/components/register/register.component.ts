@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators'
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -10,37 +14,41 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 export class RegisterComponent {
 
   public formSubmitted: boolean = false;
+  validRoles = ['user', 'company']
 
+  destroy$ = new Subject();
+
+  registerAs: string = 'user';
  
   registerForm = new FormGroup({ 
-    Usuario: new FormControl(null, [Validators.required]),
-    Pais: new FormControl(null, [Validators.required]),
-    Linkedin : new FormControl(null, [Validators.required]),
-    Repositorio: new FormControl(null, [Validators.required]),
+    username: new FormControl(null, [Validators.required]),
+    country: new FormControl(null, [Validators.required]),
+    linkedin: new FormControl(null, [Validators.required]),
+    repository: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
     password2: new FormControl(null,[ Validators.required]),
-    descripcion: new FormControl(null,[ Validators.required])
-    
-  },
-  
-    
-  )
+    description: new FormControl(null,[ Validators.required]) 
+  })
 
-  constructor() { }
+  constructor(private router: ActivatedRoute, private authService: AuthService) {
+    this.router.queryParams
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe( 
+        tipo => 
+          this.registerAs = this.validRoles.includes(tipo.as) ? tipo.as : 'user');
+  }
 
     crearUsuario() {
       this.formSubmitted = true;
-      console.log( this.registerForm.value );
   
       if ( this.registerForm.invalid ) {
         console.log('No se pudo guardar')
         return;
-        
       }
       
-      // Realizar el posteo
-    
-  
+      this.authService.createAccount( {...this.registerForm.value, rol:this.registerAs} );
   
     }
 
@@ -65,6 +73,10 @@ export class RegisterComponent {
   
     }
     
+    ngOnDestroy() {
+      this.destroy$.next();
+      this.destroy$.complete();
+    }
   
 
 }

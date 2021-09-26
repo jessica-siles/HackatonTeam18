@@ -1,0 +1,6 @@
+<p *ngIf="success">Cuenta creada exitosamente!</p>
+<p *ngIf="!success">Tuvimos problemas para crear la cuenta: {{error}}</p>
+
+
+<a [routerLink]="['/', 'login']">Regreso a Login</a>
+

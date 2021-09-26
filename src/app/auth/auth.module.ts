@@ -1,30 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
+import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
+
+import { FirebaseService } from '../core/services/firebase.service';
+
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthService } from './services/auth.service';
+import { FirestoreService } from '../core/services/firestore.service';
+import { RegisterCompleteComponent } from './components/register-complete/register-complete.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
-  ],
-  exports: [
-    LoginComponent,
     RegisterComponent,
+    RegisterCompleteComponent
   ],
   imports: [
     CommonModule,
-    RouterModule,
+    AuthRoutingModule,
+    SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
-  ]
+  ],
+  providers: [FirebaseService, AuthService, FirestoreService]
 })
 export class AuthModule { }
