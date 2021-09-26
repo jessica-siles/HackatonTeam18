@@ -14,17 +14,17 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent {
 
   public formSubmitted: boolean = false;
+  validRoles = ['user', 'company']
 
   destroy$ = new Subject();
 
   registerAs: string = 'user';
-
  
   registerForm = new FormGroup({ 
     username: new FormControl(null, [Validators.required]),
     country: new FormControl(null, [Validators.required]),
     linkedin: new FormControl(null, [Validators.required]),
-    repositorio: new FormControl(null, [Validators.required]),
+    repository: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
     password2: new FormControl(null,[ Validators.required]),
     description: new FormControl(null,[ Validators.required]) 
@@ -35,7 +35,9 @@ export class RegisterComponent {
       .pipe(
         takeUntil(this.destroy$)
       )
-      .subscribe( tipo => this.registerAs = tipo.as);
+      .subscribe( 
+        tipo => 
+          this.registerAs = this.validRoles.includes(tipo.as) ? tipo.as : 'user');
   }
 
     crearUsuario() {
@@ -46,7 +48,7 @@ export class RegisterComponent {
         return;
       }
       
-      this.authService.createAccount( this.registerForm.value );
+      this.authService.createAccount( {...this.registerForm.value, rol:this.registerAs} );
   
     }
 
