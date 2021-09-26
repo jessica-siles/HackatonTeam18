@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators'
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -11,36 +15,38 @@ export class RegisterComponent {
 
   public formSubmitted: boolean = false;
 
+  destroy$ = new Subject();
+
+  registerAs: string = 'user';
+
  
   registerForm = new FormGroup({ 
-    Usuario: new FormControl(null, [Validators.required]),
-    Pais: new FormControl(null, [Validators.required]),
-    Linkedin : new FormControl(null, [Validators.required]),
-    Repositorio: new FormControl(null, [Validators.required]),
+    username: new FormControl(null, [Validators.required]),
+    country: new FormControl(null, [Validators.required]),
+    linkedin: new FormControl(null, [Validators.required]),
+    repositorio: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
     password2: new FormControl(null,[ Validators.required]),
-    descripcion: new FormControl(null,[ Validators.required])
-    
-  },
-  
-    
-  )
+    description: new FormControl(null,[ Validators.required]) 
+  })
 
-  constructor() { }
+  constructor(private router: ActivatedRoute, private authService: AuthService) {
+    this.router.queryParams
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe( tipo => this.registerAs = tipo.as);
+  }
 
     crearUsuario() {
       this.formSubmitted = true;
-      console.log( this.registerForm.value );
   
       if ( this.registerForm.invalid ) {
         console.log('No se pudo guardar')
         return;
-        
       }
       
-      // Realizar el posteo
-    
-  
+      this.authService.createAccount( this.registerForm.value );
   
     }
 
@@ -65,6 +71,10 @@ export class RegisterComponent {
   
     }
     
+    ngOnDestroy() {
+      this.destroy$.next();
+      this.destroy$.complete();
+    }
   
 
 }

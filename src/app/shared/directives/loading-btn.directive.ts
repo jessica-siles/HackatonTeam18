@@ -9,9 +9,7 @@ export class LoadingBtnDirective implements OnChanges {
   @Input() disabled!: boolean;
   @Input() loadingFlag!: boolean;
 
-  constructor(private elem: ElementRef) { 
-    console.log(this.elem);
-  }
+  constructor(private elem: ElementRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.condition && changes.condition.currentValue) {
