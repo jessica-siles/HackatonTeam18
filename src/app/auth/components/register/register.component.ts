@@ -18,13 +18,12 @@ export class RegisterComponent {
   destroy$ = new Subject();
 
   registerAs: string = 'user';
-
  
   registerForm = new FormGroup({ 
     username: new FormControl(null, [Validators.required]),
     country: new FormControl(null, [Validators.required]),
     linkedin: new FormControl(null, [Validators.required]),
-    repositorio: new FormControl(null, [Validators.required]),
+    repository: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
     password2: new FormControl(null,[ Validators.required]),
     description: new FormControl(null,[ Validators.required]) 
@@ -46,7 +45,7 @@ export class RegisterComponent {
         return;
       }
       
-      this.authService.createAccount( this.registerForm.value );
+      this.authService.createAccount( {...this.registerForm.value, as:this.registerAs} );
   
     }
 
