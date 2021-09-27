@@ -95,5 +95,25 @@ export class FirestoreService {
  }
 
 
+ public async cancelInscription(descripcion:any,empresa:any,idBootcamp:any,
+  idUsuario:any,username:any,idEmpresa:any,idInscription:any){
+  // console.log(descripcion,empresa,idempresa)
+
+  const docRef = await setDoc(doc(this.db, "inscripcion",idInscription), {
+    descripcion,
+    empresa,
+    idBootcamp,
+    idUsuario,
+    username,
+    idEmpresa,
+    estado:false
+  });
+
+  return docRef
+
+
+ }
+
+
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { Empresas } from '../../../auth/models/empresa.model';
 
@@ -12,7 +13,7 @@ export class DashboardInscriptionsComponent implements OnInit {
   //   { nombre: 'Google', descripcion: 'Bootcamp este fin de semana del 25 al 16 de octubre' },
   //   { nombre: 'Hk', descripcion: 'Bootcamp este fin de semana del 25 al 16 de octubre' }
   // ];
-  constructor(private firestoreService: FirestoreService) { }
+  constructor(private firestoreService: FirestoreService,private router: Router) { }
   inscripcionesArray: any[] = []
 
   ngOnInit(): void {
@@ -31,6 +32,13 @@ export class DashboardInscriptionsComponent implements OnInit {
       })
       console.log(this.inscripcionesArray)
     })
+  }
+
+  cancelarInscripcion(item:any){
+    this.firestoreService.cancelInscription(item.descripcion,item.empresa,item.idBootcamp,
+      item.idUsuario,item.username,item.idEmpresa,item.id).then(e => {
+        this.router.navigate(['/','subscriptions'])
+      })
   }
 
 }
