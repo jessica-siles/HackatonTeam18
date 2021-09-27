@@ -1,0 +1,30 @@
+//#ff83c5
+//#D10070
+
+.navbar-brand {
+  font-size: 20px;
+  font-weight: 600;
+  color: #d10070;
+  cursor: pointer;
+  &:hover {
+    color: #d10070;
+  }
+}
+.nav-item {
+  .nav-link {
+    font-size: 20px;
+    font-weight: 600;
+    color: #d10070;
+  }
+  .active {
+    color: #ff83c5;
+  }
+}
+.btn-outline-info {
+  border: 1px solid #d10070;
+  color: #d10070;
+  &:hover {
+    color: #ffff;
+    background-color: #d10070;
+  }
+}

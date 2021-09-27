@@ -6,19 +6,21 @@ import { ContentDashboardComponent } from './components/content-dashboard/conten
 import { DashboardSubscriptionsComponent } from './components/dashboard-subscriptions/dashboard-subscriptions.component';
 import { DashboardInscriptionsComponent } from './components/dashboard-inscriptions/dashboard-inscriptions.component';
 import { DashboardLogsComponent } from './components/dashboard-logs/dashboard-logs.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
 
     ContentDashboardComponent,
-       DashboardSubscriptionsComponent,
-       DashboardInscriptionsComponent,
-       DashboardLogsComponent
+    DashboardSubscriptionsComponent,
+    DashboardInscriptionsComponent,
+    DashboardLogsComponent
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    SharedModule
   ],
   exports: [
     CommonModule,
