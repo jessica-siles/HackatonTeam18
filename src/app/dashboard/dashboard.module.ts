@@ -10,15 +10,16 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
 
     ContentDashboardComponent,
-       DashboardSubscriptionsComponent,
-       DashboardInscriptionsComponent,
-       DashboardLogsComponent
+    DashboardSubscriptionsComponent,
+    DashboardInscriptionsComponent,
+    DashboardLogsComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CommonModule,
     DashboardRoutingModule,
     InfiniteScrollModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    SharedModule
   ],
   exports: [
     CommonModule,
