@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthModule } from '../auth/auth.module';
-import { PagesModule } from '../pages/pages.module';
 
 import { NopagefoundComponent } from './components/nopagefound/nopagefound.component';
 
 import { UserService } from './services/user.service';
-
+import { DashboardModule } from '../dashboard/dashboard.module';
 
 
 @NgModule({
@@ -15,7 +14,7 @@ import { UserService } from './services/user.service';
   ],
   imports: [
     CommonModule,
-    PagesModule,
+    DashboardModule,
     AuthModule,
   ],
   exports: [

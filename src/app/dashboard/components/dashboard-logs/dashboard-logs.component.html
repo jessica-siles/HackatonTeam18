@@ -1,0 +1,63 @@
+<div class="container">
+
+  <div
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+
+  >
+
+    <div class="row pt-5">
+      <div class="col-12 p-2" *ngFor="let post of allpost">
+        <div class="card shadow">
+          <div class="card-body">
+            <div class="card-title text-center">{{post.username}}</div>
+            <div class="card-title text-center">{{post.name}}</div>
+
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel repellendus provident culpa veniam deserunt autem, ut, numquam eligendi quod maiores labore quo odio, id nulla fugit expedita similique aliquam! Error!
+              Laboriosam, ea? A quis, laborum recusandae aliquam, commodi modi in eligendi incidunt atque doloribus voluptas, necessitatibus possimus odio repellat similique officia beatae blanditiis unde. Nulla laboriosam vitae dolore quidem aliquid.
+              A beatae officia temporibus tempora distinctio nisi maxime, laudantium enim voluptatem aliquid repudiandae eum expedita fugit est? Deserunt alias eaque aliquam error delectus perspiciatis rerum temporibus, quia, quidem tempora ea.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel repellendus provident culpa veniam deserunt autem, ut, numquam eligendi quod maiores labore quo odio, id nulla fugit expedita similique aliquam! Error!
+              Laboriosam, ea? A quis, laborum recusandae aliquam, commodi modi in eligendi incidunt atque doloribus voluptas, necessitatibus possimus odio repellat similique officia beatae blanditiis unde. Nulla laboriosam vitae dolore quidem aliquid.
+              A beatae officia temporibus tempora distinctio nisi maxime, laudantium enim voluptatem aliquid repudiandae eum expedita fugit est? Deserunt alias eaque aliquam error delectus perspiciatis rerum temporibus, quia, quidem tempora ea.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel repellendus provident culpa veniam deserunt autem, ut, numquam eligendi quod maiores labore quo odio, id nulla fugit expedita similique aliquam! Error!
+              Laboriosam, ea? A quis, laborum recusandae aliquam, commodi modi in eligendi incidunt atque doloribus voluptas, necessitatibus possimus odio repellat similique officia beatae blanditiis unde. Nulla laboriosam vitae dolore quidem aliquid.
+              A beatae officia temporibus tempora distinctio nisi maxime, laudantium enim voluptatem aliquid repudiandae eum expedita fugit est? Deserunt alias eaque aliquam error delectus perspiciatis rerum temporibus, quia, quidem tempora ea.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel repellendus provident culpa veniam deserunt autem, ut, numquam eligendi quod maiores labore quo odio, id nulla fugit expedita similique aliquam! Error!
+              Laboriosam, ea? A quis, laborum recusandae aliquam, commodi modi in eligendi incidunt atque doloribus voluptas, necessitatibus possimus odio repellat similique officia beatae blanditiis unde. Nulla laboriosam vitae dolore quidem aliquid.
+              A beatae officia temporibus tempora distinctio nisi maxime, laudantium enim voluptatem aliquid repudiandae eum expedita fugit est? Deserunt alias eaque aliquam error delectus perspiciatis rerum temporibus, quia, quidem tempora ea.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+ <!-- Spinner -->
+ <div class="row pb-5">
+  <div class="col-md-12 pb-5">
+    <ngx-spinner
+    bdOpacity = 0.9
+    bdColor = ""
+    size = "default"
+    color = "#ff0000"
+    type = "ball-pulse-sync"
+    [fullScreen] = "false"
+    >
+
+    </ngx-spinner>
+  </div>
+</div>
+
+<!-- Alert no more post -->
+<div *ngIf = "!notEmptyPost" class="row pb-5">
+  <div class="col-md-12 d-flex justify-content-center">
+    <div class="text-muted h6 alert alert-secondary p-2">No more items to show</div>
+  </div>
+</div>
