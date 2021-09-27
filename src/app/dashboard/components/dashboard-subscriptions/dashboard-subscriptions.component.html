@@ -1,1 +1,49 @@
-<p>dashboard-subscriptions works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ <div class="container-fluid">
+   <a class="navbar-brand">Bootcamps</a>
+   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarText">
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       <li class="nav-item">
+         <a class="nav-link active" aria-current="page" routerLink="/inscriptions">Mis Bootcamps</a>
+       </li>
+     </ul>
+     <button class="btn btn-primary" routerLink="/logs">Crear Bootcamp</button>
+   </div>
+ </div>
+</nav>
+ 
+<div class="container-fluid fondo">
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="list-group">
+        <li
+          *ngFor="let empresas of empresasArray; index as i"
+          class="list-group-item list-group-item-action"
+        >
+          <div class="card border-dark mb-3">
+            <div class="card-header">
+              Bootcamp
+              <span>{{ i + 1 }}</span>
+            </div>
+            <div class="card-body text-dark">
+              <h5 class="card-title">{{ empresas.nombre }}</h5>
+              <p class="card-text">{{ empresas.descripcion }}</p>
+              <div class="w-100" style="text-align: right">
+                <button *ngIf="logueado === 'user'" class="btn btn-block boton">
+                  Anotarse
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- <li *ngFor="let empleados of empleadosArray" class="list-group-item list-group-item-action"
+       (click)="editarEmpleado(empleados)" [class.active]="empleados == seleccionarEmpleado">
+         <span class="badge bg-primary">{{empleados.id}}</span> {{empleados.nombre}} - {{empleados.country}} 
+       </li>-->

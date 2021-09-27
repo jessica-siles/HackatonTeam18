@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'inscriptions',
+        redirectTo: 'subscriptions',
         pathMatch: 'full'
       },
       {
