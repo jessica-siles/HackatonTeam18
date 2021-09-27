@@ -11,9 +11,10 @@
               </div>
               <div class="card-body text-dark">
                 <!-- <h5 class="card-title">{{ bootcamp.nombre }}</h5> -->
-                <p class="card-text">{{ bootcamp.descripcion }}</p>
+                <textarea class="form-control" [disabled]="disab" [(ngModel)]="bootcamp.descripcion"></textarea>
+                <button  class="btn btn-block boton mr-2" *ngIf="disab == false" (click)="confirmarEdit(bootcamp)">Confirmar</button>
                 <div class="w-100" style="text-align: right">
-                  <button  class="btn btn-block boton mr-2">
+                  <button  class="btn btn-block boton mr-2" (click)="disab=!disab">
                     Editar
                   </button>
                   <button  class="btn btn-block boton-dark ml-2" (click)="eliminarBootcamp(bootcamp)">

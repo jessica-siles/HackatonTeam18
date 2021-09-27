@@ -11,6 +11,8 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 })
 export class DashboardBootcampsEmpresaComponent implements OnInit {
 
+  public disab = true;
+  public textoDescripcion = ''
   constructor(private firestoreService: FirestoreService,private router: Router) { }
 
   ngOnInit(): void {
@@ -58,6 +60,13 @@ export class DashboardBootcampsEmpresaComponent implements OnInit {
 
   eliminarBootcamp(bootcamp:any){
     this.firestoreService.deleteBootcamp(bootcamp.descripcion,bootcamp.empresa,bootcamp.idEmpresa,bootcamp.id).then(e=> {
+      this.router.navigate(['/','subscriptions'])
+    })
+  }
+
+  confirmarEdit(bootcamp:any){
+    // console.log(bootcamp)
+    this.firestoreService.editBootcamp(bootcamp.descripcion,bootcamp.empresa,bootcamp.idEmpresa,bootcamp.id).then(e=> {
       this.router.navigate(['/','subscriptions'])
     })
   }

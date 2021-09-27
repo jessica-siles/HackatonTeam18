@@ -74,6 +74,20 @@ export class FirestoreService {
 
   }
 
+  public async editBootcamp(descripcion:any,empresa:any,idempresa:any,idBootcamp:any) {
+    console.log(descripcion,empresa,idempresa)
+    const docRef = await setDoc(doc(this.db, "bootcamp",idBootcamp), {
+      descripcion,
+      empresa,
+      idEmpresa:idempresa,
+      estado:true
+    });
+
+    return docRef
+
+
+  }
+
 
 
  public async addInscription(descripcion:any,empresa:any,idBootcamp:any,idUsuario:any,username:any,idEmpresa:any){
