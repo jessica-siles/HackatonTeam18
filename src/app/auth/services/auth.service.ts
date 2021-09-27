@@ -48,7 +48,8 @@ export class AuthService {
       country,
       description,
       rol,
-      [rol === 'user' ? 'repository' : 'webpage']: repository
+      [rol === 'user' ? 'repository' : 'webpage']: repository,
+      estado:true
     })
       .then(res => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: '' } }))
       .catch(err => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: err } }));
