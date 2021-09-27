@@ -53,7 +53,7 @@ export class UserService {
   setUserConfStorage(data: any) {
     this.user = data;
     if (this.user.loggedIn) {
-      this.router.navigate(['/','bootcamps']);
+      this.router.navigate(['/','subscriptions']);
     }
   }
 

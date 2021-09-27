@@ -47,7 +47,7 @@ export class AuthService {
         linkedin,
         country,
         description,
-        rol, 
+        rol,
         [rol === 'user' ? 'repository' : 'webpage']: repository
       })
       .then( res => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: ''}}))
@@ -62,7 +62,7 @@ export class AuthService {
         this.userService.setUid(userCredential.user.uid);
         this.userService.setToken(userCredential.user['stsTokenManager']);
         this.getUserProfile();
-        this.router.navigate(['/', 'bootcamps']);
+        this.router.navigate(['/', 'subscriptions']);
       })
       .catch( err => this.userService.setErrorLogin(true))
   }
@@ -73,7 +73,7 @@ export class AuthService {
         this.userService.resetUserService();
         this.router.navigate(['/', 'login']);
       })
-      .catch( err => console.log(err)); 
+      .catch( err => console.log(err));
   }
 
   async getUserProfile() {

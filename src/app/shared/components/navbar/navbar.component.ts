@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
 
   menu: Array<any> = [
     {
-      path: ['/', 'subscriptions'],
+      path: ['/', 'ownbootcamps'],
       name: 'Mis Bootcamps',
       class: '',
       role: [''],
