@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,22 +13,28 @@ export class LoginComponent implements OnInit {
   loading: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      user: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     })
+    this.checkSession();
   }
 
   login() {
-    this.loading = true
+    this.loading = true;
     this.authService.loginUser(this.form.value);
-    setTimeout(() => {
-      this.loading = false
-    }, 1000);
+    this.loading = false;
   }
 
+
+  checkSession() {
+    this.authService.checkSession(true).then(res => {
+      this.router.navigate(['/', 'subscriptions'])
+    }).catch(e => console.log)
+  }
 }

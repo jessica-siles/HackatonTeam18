@@ -7,7 +7,6 @@ import {
   signOut,
 } from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
-import { single } from 'rxjs/operators';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -35,45 +34,47 @@ export class AuthService {
       .then(userCredential => {
         this.registerProfile(data, userCredential.user.uid);
       })
-      .catch( err => {
+      .catch(err => {
+        console.log(err);
         this.router.navigate(['/', 'login'])
       })
   }
 
   async registerProfile({ username, password, linkedin, country, description, rol, repository }: AccountModel, uid: string) {
-      await setDoc(doc(this.fstoreService.getFirestore(), 'usuario', uid),   {
-        username,
-        password,
-        linkedin,
-        country,
-        description,
-        rol,
-        [rol === 'user' ? 'repository' : 'webpage']: repository
-      })
-      .then( res => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: ''}}))
-      .catch( err => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: err}}));
+    await setDoc(doc(this.fstoreService.getFirestore(), 'usuario', uid), {
+      username,
+      password,
+      linkedin,
+      country,
+      description,
+      rol,
+      [rol === 'user' ? 'repository' : 'webpage']: repository
+    })
+      .then(res => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: '' } }))
+      .catch(err => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: err } }));
   }
 
-  loginUser({ user, password }: any) {
-    signInWithEmailAndPassword(this.auth, user, password)
-      .then( (userCredential: any) => {
+  loginUser({ email, password }: any) {
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential: any) => {
         this.userService.setErrorLogin(false);
         this.userService.setLoggenStatus(true);
-        this.userService.setUid(userCredential.user.uid);
         this.userService.setToken(userCredential.user['stsTokenManager']);
-        this.getUserProfile();
-        this.router.navigate(['/', 'subscriptions']);
+        this.userService.setUid(userCredential.user.uid);
+        this.getUserProfile().then(res => {
+          this.router.navigate(['/', 'subscriptions']);
+        });
       })
-      .catch( err => this.userService.setErrorLogin(true))
+      .catch(err => this.userService.setErrorLogin(true))
   }
 
   logoutUser() {
     signOut(this.auth)
-      .then( () => {
+      .then(() => {
         this.userService.resetUserService();
         this.router.navigate(['/', 'login']);
       })
-      .catch( err => console.log(err));
+      .catch(err => console.log(err));
   }
 
   async getUserProfile() {
@@ -81,5 +82,23 @@ export class AuthService {
     const profileData = await getDoc(profile);
     this.userService.setUserProfile(profileData.data());
   }
+  redirectLogin() {
+
+  }
+  checkSession = (redirect = true) => {
+    return new Promise((resolve, reject) => {
+      if (this.userService.getLoggedStatus()) {
+        resolve(true);
+      } else {
+        redirect ? this.redirectLogin() : null;
+        reject(false);
+      }
+    }
+    );
+  };
+
+
 
 }
+
+

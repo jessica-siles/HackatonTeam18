@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../core/services/user.service';
+import { AccountModel } from '../../../auth/models/account.model';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,27 +15,32 @@ export class NavbarComponent implements OnInit {
     {
       path: ['/', 'ownbootcamps'],
       name: 'Mis Bootcamps',
-      class: '',
-      role: [''],
+      role: ['company'],
     },
     {
       path: ['/', 'inscriptions'],
       name: 'Mis Inscripción',
-      class: '',
-      role: [''],
+      role: ['user'],
     },
     {
       path: ['/', 'logs'],
       name: 'Crear Bootcamp',
-      class: 'create',
-      role: [''],
+      role: ['company'],
     },
-
-
   ]
-  constructor() { }
+  user!: any;
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
+    const { profile } = this.userService.currentUser()
+    this.user = profile;
+  }
+
+  logout() {
+    this.authService.logoutUser()
   }
 
 }

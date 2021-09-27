@@ -8,7 +8,6 @@ import { DashboardInscriptionsComponent } from './components/dashboard-inscripti
 import { DashboardLogsComponent } from './components/dashboard-logs/dashboard-logs.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { NgxSpinnerModule } from 'ngx-spinner'
-
 import { SharedModule } from '../shared/shared.module';
 import { DashboardBootcampsEmpresaComponent } from './components/dashboard-bootcamps-empresa/dashboard-bootcamps-empresa.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardBootcampsEmpresaComponent
   ],
   imports: [
+    // BrowserModule,
     CommonModule,
     DashboardRoutingModule,
     InfiniteScrollModule,
