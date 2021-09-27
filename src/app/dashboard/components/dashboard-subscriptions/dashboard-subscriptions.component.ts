@@ -1,30 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { Empresas } from 'src/app/auth/models/empresa.model';
 import { AccountModel } from 'src/app/auth/models/account.model';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
+
+
 @Component({
   selector: 'app-dashboard-subscriptions',
   templateUrl: './dashboard-subscriptions.component.html',
   styleUrls: ['./dashboard-subscriptions.component.scss']
 })
-export class DashboardSubscriptionsComponent {
-  empresasArray: Empresas[] = [
-    {nombre:'Google',descripcion:'Bootcamp este fin de semana del 25 al 16 de octubre'},
-    {nombre:'Hk',descripcion:'Bootcamp este fin de semana del 25 al 16 de octubre'},
-    {nombre:'Teams',descripcion:'Bootcamp este fin de semana del 25 al 16 de octubre'},
-    {nombre:'Studio',descripcion:'Bootcamp este fin de semana del 25 al 16 de octubre'},
+export class DashboardSubscriptionsComponent implements OnInit{
+  empresasArray: any[] = [
+
   ];
-  usuariosArray: AccountModel[] = [
-    {username: 'Jose',
-      password: '123645',
-      password2: '123645',
-      linkedin: 'www.com',
-      country: 'españa',
-      repository: 'github',
-      description: 'soy jose',
-      rol: 'usuario'}
-    
+  usuariosArray: any[] = [
+
+
   ];
 
   validRoles = ['user', 'company']
   logueado :string = 'user'
+
+  constructor( private firestoreService: FirestoreService ){
+
+  }
+  ngOnInit(){
+    this.getBootcamps()
+  }
+
+  async getBootcamps() {
+    this.firestoreService.getBootcamps().then( (e:any) => {
+      e.forEach((doc:any) => {
+        this.empresasArray.push(doc.data());
+        console.log(doc.data().usuarios)
+      })
+  })
+  }
 }
