@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-xs-12">
         <ul class="list-group">
-          <li *ngFor="let item of business; index as i" class="list-group-item mb-3">
+          <li *ngFor="let item of inscripcionesArray; index as i" class="list-group-item mb-3">
             <div class="card border-dark mb-3">
               <div class="card-header">
                 Bootcamp
                 <span>{{ i + 1 }}</span>
               </div>
               <div class="card-body text-dark">
-                <h5 class="card-title">{{ item.nombre }}</h5>
+                <h5 class="card-title">{{ item.empresa }}</h5>
                 <p class="card-text">{{ item.descripcion }}</p>
                 <div class="w-100" style="text-align: right">
                   <button class="btn btn-block boton">

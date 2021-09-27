@@ -25,6 +25,16 @@ export class FirestoreService {
 
   }
 
+  public async getBootcampsPorEmpresa() {
+    let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);
+    console.log(infoUser.user.uid)
+
+    const q = query(collection(this.db, 'bootcamp'),where("idEmpresa","==",infoUser.user.uid));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+
+  }
+
 
   public async getInscripciones() {
     let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);

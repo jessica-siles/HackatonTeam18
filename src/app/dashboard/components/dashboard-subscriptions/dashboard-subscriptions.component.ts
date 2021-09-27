@@ -36,9 +36,7 @@ export class DashboardSubscriptionsComponent implements OnInit {
 
       })
       this.getBootcamps();
-      // console.log(e)
     })
-    //
   }
 
   async getBootcamps() {
