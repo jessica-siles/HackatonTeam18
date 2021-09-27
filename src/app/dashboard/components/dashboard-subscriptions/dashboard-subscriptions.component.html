@@ -20,7 +20,7 @@
       <div class="col-xs-12">
         <ul class="list-group">
           <li *ngFor="let bootcamps of bootcampsArray; index as i" class="list-group-item list-group-item-action">
-            <div class="card border-dark mb-3">
+            <div class="card border-dark mb-3" *ngIf="bootcamps.estado === true">
               <div class="card-header">
                 Bootcamp
                 <span>{{ i + 1 }}</span>
@@ -28,13 +28,13 @@
               <div class="card-body text-dark">
                 <h5 class="card-title">{{ bootcamps.empresa }}</h5>
                 <p class="card-text">{{ bootcamps.descripcion }}</p>
-                <!-- <p class="card-text">{{ bootcamps.estado }}</p> -->
+                <!-- <p class="card-text">{{ bootcamps.asistio }}</p> -->
                 <div class="w-100" style="text-align: right">
-                  <button *ngIf="logueado === 'user' && bootcamps.estado!='Asistido'" 
+                  <button *ngIf="logueado === 'user' && bootcamps.asistio!='Asistido'"
                   class="btn btn-block boton" (click)="Inscribirse(bootcamps)">
                     Anotarse
                   </button>
-                  <button *ngIf="logueado === 'user' && bootcamps.estado=='Asistido'" class="btn btn-block boton" disabled>
+                  <button *ngIf="logueado === 'user' && bootcamps.asistio=='Asistido'" class="btn btn-block boton" disabled>
                     Ya se anotó
                   </button>
                 </div>

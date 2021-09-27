@@ -3,20 +3,20 @@
     <div class="row">
       <div class="col-xs-12">
         <ul class="list-group">
-          <li *ngFor="let empresas of bootcampsArray; index as i" class="list-group-item list-group-item-action">
-            <div class="card border-dark mb-3">
+          <li *ngFor="let bootcamp of bootcampsArray; index as i" class="list-group-item list-group-item-action">
+            <div class="card border-dark mb-3" *ngIf="bootcamp.estado === true">
               <div class="card-header">
                 Bootcamp
                 <span>{{ i + 1 }}</span>
               </div>
               <div class="card-body text-dark">
-                <!-- <h5 class="card-title">{{ empresas.nombre }}</h5> -->
-                <p class="card-text">{{ empresas.descripcion }}</p>
+                <!-- <h5 class="card-title">{{ bootcamp.nombre }}</h5> -->
+                <p class="card-text">{{ bootcamp.descripcion }}</p>
                 <div class="w-100" style="text-align: right">
                   <button  class="btn btn-block boton mr-2">
                     Editar
                   </button>
-                  <button  class="btn btn-block boton-dark ml-2">
+                  <button  class="btn btn-block boton-dark ml-2" (click)="eliminarBootcamp(bootcamp)">
                     Eliminar
                   </button>
                 </div>

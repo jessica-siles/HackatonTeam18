@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountModel } from 'src/app/auth/models/account.model';
 import { Empresas } from 'src/app/auth/models/empresa.model';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
@@ -10,7 +11,7 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 })
 export class DashboardBootcampsEmpresaComponent implements OnInit {
 
-  constructor(private firestoreService: FirestoreService) { }
+  constructor(private firestoreService: FirestoreService,private router: Router) { }
 
   ngOnInit(): void {
     this.getBootcampsSegunEmpresa();
@@ -42,10 +43,22 @@ export class DashboardBootcampsEmpresaComponent implements OnInit {
 
     this.firestoreService.getBootcampsPorEmpresa().then(e => {
       e.forEach((doc: any) => {
-        this.bootcampsArray.push(doc.data());
+        this.bootcampsArray.push({
+          id : doc.id,
+          descripcion : doc.data().descripcion,
+          empresa :doc.data().empresa,
+          estado : doc.data().estado,
+          idEmpresa: doc.data().idEmpresa
+        });
 
       })
       console.log(this.bootcampsArray)
+    })
+  }
+
+  eliminarBootcamp(bootcamp:any){
+    this.firestoreService.deleteBootcamp(bootcamp.descripcion,bootcamp.empresa,bootcamp.idEmpresa,bootcamp.id).then(e=> {
+      this.router.navigate(['/','subscriptions'])
     })
   }
 }

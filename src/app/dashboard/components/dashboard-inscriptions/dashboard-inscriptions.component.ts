@@ -18,7 +18,16 @@ export class DashboardInscriptionsComponent implements OnInit {
   ngOnInit(): void {
     this.firestoreService.getInscripciones().then(e => {
       e.forEach((doc: any) => {
-        this.inscripcionesArray.push(doc.data());
+        this.inscripcionesArray.push({
+          id : doc.id,
+          descripcion: doc.data().descripcion,
+          empresa: doc.data().empresa,
+          estado: doc.data().estado,
+          idBootcamp: doc.data().idBootcamp,
+          idEmpresa: doc.data().idEmpresa,
+          idUsuario: doc.data().idUsuario,
+          username: doc.data().username,
+         });
       })
       console.log(this.inscripcionesArray)
     })

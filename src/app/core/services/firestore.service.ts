@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { getFirestore } from 'firebase/firestore';
 import { FirebaseService } from './firebase.service';
-import { getDocs, query, collection,where,addDoc } from 'firebase/firestore';
+import { getDocs, query, collection,where,addDoc,doc,setDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,8 @@ export class FirestoreService {
     const docRef = await addDoc(collection(this.db, "bootcamp"), {
       descripcion,
       empresa,
-      idEmpresa:idempresa
+      idEmpresa:idempresa,
+      estado:true
     });
 
     return docRef
@@ -59,16 +60,33 @@ export class FirestoreService {
 
   }
 
+  public async deleteBootcamp(descripcion:any,empresa:any,idempresa:any,idBootcamp:any) {
+    console.log(descripcion,empresa,idempresa)
+    const docRef = await setDoc(doc(this.db, "bootcamp",idBootcamp), {
+      descripcion,
+      empresa,
+      idEmpresa:idempresa,
+      estado:false
+    });
+
+    return docRef
+
+
+  }
+
+
+
  public async addInscription(descripcion:any,empresa:any,idBootcamp:any,idUsuario:any,username:any,idEmpresa:any){
   // console.log(descripcion,empresa,idempresa)
-  
+
   const docRef = await addDoc(collection(this.db, "inscripcion"), {
     descripcion,
     empresa,
     idBootcamp,
     idUsuario,
     username,
-    idEmpresa
+    idEmpresa,
+    estado:true
   });
 
   return docRef
