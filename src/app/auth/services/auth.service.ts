@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
+import { single } from 'rxjs/operators';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -60,6 +65,15 @@ export class AuthService {
         this.router.navigate(['/', 'bootcamps']);
       })
       .catch( err => this.userService.setErrorLogin(true))
+  }
+
+  logoutUser() {
+    signOut(this.auth)
+      .then( () => {
+        this.userService.resetUserService();
+        this.router.navigate(['/', 'login']);
+      })
+      .catch( err => console.log(err)); 
   }
 
   async getUserProfile() {
