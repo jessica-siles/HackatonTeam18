@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { of } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  db = 'hack-team-18';
 
   user = {
     loggedIn: false,
@@ -26,6 +27,7 @@ export class UserService {
 
   setUserProfile(data: any) {
     this.user.profile = data;
+    this.saveLocalContent(this.user);
   }
 
   setToken(token: any) {
@@ -46,5 +48,35 @@ export class UserService {
 
   errorLogin() {
     return of(this.user.loginError)
+  }
+
+  setUserConfStorage(data: any) {
+    this.user = data;
+    if (this.user.loggedIn) {
+      this.router.navigate(['/','bootcamps']);
+    }
+  }
+
+  searchLocalContent() {
+    if (!!localStorage.getItem(this.db)) {
+      const { user } = JSON.parse(localStorage.getItem(this.db) || '{}');
+      this.setUserConfStorage(user);
+      return;
+    }
+  }
+
+  saveLocalContent(user: any) {
+    localStorage.setItem(this.db, JSON.stringify({ user }));
+  }
+
+  resetUserService() {
+    this.user = {
+      loggedIn: false,
+      loginError: false,
+      profile: {},
+      uid: '',
+      token: { }
+    };
+    localStorage.removeItem(this.db);
   }
 }
