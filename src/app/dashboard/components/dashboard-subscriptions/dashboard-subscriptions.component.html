@@ -30,13 +30,13 @@
                 <p class="card-text">{{ bootcamps.descripcion }}</p>
                 <!-- <p class="card-text">{{ bootcamps.estado }}</p> -->
                 <div class="w-100" style="text-align: right">
-                  <button *ngIf="logueado === 'user' && bootcamps.estado!='Asistido'" class="btn btn-block boton">
+                  <button *ngIf="logueado === 'user' && bootcamps.estado!='Asistido'" 
+                  class="btn btn-block boton" (click)="Inscribirse(bootcamps)">
                     Anotarse
                   </button>
                   <button *ngIf="logueado === 'user' && bootcamps.estado=='Asistido'" class="btn btn-block boton" disabled>
                     Ya se anotó
                   </button>
-                  <button (click)="mostrar()">clic</button>
                 </div>
               </div>
             </div>

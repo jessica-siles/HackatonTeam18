@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresas } from 'src/app/auth/models/empresa.model';
-import { AccountModel } from 'src/app/auth/models/account.model';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +22,7 @@ export class DashboardSubscriptionsComponent implements OnInit {
   validRoles = ['user', 'company']
   logueado: string = 'user'
 
-  constructor(private firestoreService: FirestoreService) {
+  constructor(private firestoreService: FirestoreService,private router: Router) {
 
   }
   ngOnInit() {
@@ -43,7 +42,14 @@ export class DashboardSubscriptionsComponent implements OnInit {
   async getBootcamps() {
     this.firestoreService.getBootcamps().then((e: any) => {
       e.forEach((doc: any) => {
-        this.bootcampsArray.push(doc.data());
+        this.bootcampsArray.push({
+          id: doc.id,
+          descripcion: doc.data().descripcion,
+          empresa: doc.data().empresa,
+          idEmpresa: doc.data().idEmpresa,
+
+        });
+        
       })
       this.bootcampsArray.forEach( b => {
         console.log(b)
@@ -58,33 +64,15 @@ export class DashboardSubscriptionsComponent implements OnInit {
       })
     })
   }
-  getBootcampsporEmpresa(){
-    this.firestoreService.getBootcampsPorEmpresa().then(e => {
-      e.forEach((doc: any) => {
-        this.EmpresasArray.push(doc.data());
-
-      })
-      this.getBootcamps();
-    })
-  }
-  mostrar(){
-      this.bootcampsArray.forEach( b => {
-        console.log("estos son los datos del METODO MOSTRAR"),
-        console.log(b)
-      // this.inscripcionesArray.forEach( i=> {
-      //   if(i.empresa == b.empresa){
-      //     b.estado = 'Asistido'
-      //   }else{
-      //     b.estado = 'Falta'
-      //   }
-      //   if(b.estado = 'falta')
-      //   {
-      //     this.altaArray.push(b.idEmpresa,)
-
-      //   }
-
-      // })
-    })
+  
+ 
+  Inscribirse(bootcamps:any){
+    let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);
+    let user = infoUser.user
+    
+    this.firestoreService
+    .addInscription(bootcamps.descripcion,bootcamps.empresa,bootcamps.id,user.uid
+      ,user.profile.username,bootcamps.idEmpresa).then(res => { this.router.navigate(['/','inscriptions'])})
   }
 
   

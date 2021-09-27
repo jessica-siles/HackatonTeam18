@@ -59,11 +59,22 @@ export class FirestoreService {
 
   }
 
-  /*
-  const docRef = await addDoc(collection(db, "cities"), {
-  name: "Tokyo",
-  country: "Japan"
-}); */
+ public async addInscription(descripcion:any,empresa:any,idBootcamp:any,idUsuario:any,username:any,idEmpresa:any){
+  // console.log(descripcion,empresa,idempresa)
+  
+  const docRef = await addDoc(collection(this.db, "inscripcion"), {
+    descripcion,
+    empresa,
+    idBootcamp,
+    idUsuario,
+    username,
+    idEmpresa
+  });
+
+  return docRef
+
+
+ }
 
 
 
