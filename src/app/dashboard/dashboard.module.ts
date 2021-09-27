@@ -11,7 +11,7 @@ import { NgxSpinnerModule } from 'ngx-spinner'
 import { SharedModule } from '../shared/shared.module';
 import { DashboardBootcampsEmpresaComponent } from './components/dashboard-bootcamps-empresa/dashboard-bootcamps-empresa.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -29,7 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     InfiniteScrollModule,
     NgxSpinnerModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     CommonModule,

@@ -78,6 +78,7 @@ export class AuthService {
   }
 
   async getUserProfile() {
+    console.log(this.fstoreService.getFirestore(), 'usuario', this.userService.getUid())
     const profile = doc(this.fstoreService.getFirestore(), 'usuario', this.userService.getUid());
     const profileData = await getDoc(profile);
     this.userService.setUserProfile(profileData.data());

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { getFirestore } from 'firebase/firestore';
 import { FirebaseService } from './firebase.service';
-import { getDocs, query, collection,where } from 'firebase/firestore';
+import { getDocs, query, collection,where,addDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,7 @@ export class FirestoreService {
 
   }
 
+
   public async getBootcampsPorEmpresa() {
     let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);
     console.log(infoUser.user.uid)
@@ -44,5 +45,26 @@ export class FirestoreService {
     return querySnapshot;
 
   }
+
+  public async addBootcamps(descripcion:any,empresa:any,idempresa:any) {
+    console.log(descripcion,empresa,idempresa)
+    const docRef = await addDoc(collection(this.db, "bootcamp"), {
+      descripcion,
+      empresa,
+      idEmpresa:idempresa
+    });
+
+    return docRef
+
+
+  }
+
+  /*
+  const docRef = await addDoc(collection(db, "cities"), {
+  name: "Tokyo",
+  country: "Japan"
+}); */
+
+
 
 }
