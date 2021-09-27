@@ -12,7 +12,6 @@ export class FirestoreService {
   db = getFirestore(this.fbService.app);
 
   getFirestore() {
-    console.log(this.db);
     return this.db;
   }
 

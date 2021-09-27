@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { setDoc, doc } from 'firebase/firestore';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
+import { setDoc, doc, getDoc } from 'firebase/firestore';
+import { single } from 'rxjs/operators';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 import { FirebaseService } from '../../core/services/firebase.service';
 
@@ -18,12 +24,14 @@ export class AuthService {
   constructor(
     private fbService: FirebaseService,
     private router: Router,
-    private fstoreService: FirestoreService
+    private fstoreService: FirestoreService,
+    private userService: UserService
   ) { }
 
+  auth = this.fbService.auth;
+
   createAccount(data: AccountModel) {
-    console.log(data);
-    createUserWithEmailAndPassword(this.fbService.auth, data.username, data.password)
+    createUserWithEmailAndPassword(this.auth, data.username, data.password)
       .then(userCredential => {
         this.registerProfile(data, userCredential.user.uid);
       })
@@ -44,6 +52,34 @@ export class AuthService {
       })
       .then( res => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: ''}}))
       .catch( err => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: err}}));
+  }
+
+  loginUser({ user, password }: any) {
+    signInWithEmailAndPassword(this.auth, user, password)
+      .then( (userCredential: any) => {
+        this.userService.setErrorLogin(false);
+        this.userService.setLoggenStatus(true);
+        this.userService.setUid(userCredential.user.uid);
+        this.userService.setToken(userCredential.user['stsTokenManager']);
+        this.getUserProfile();
+        this.router.navigate(['/', 'bootcamps']);
+      })
+      .catch( err => this.userService.setErrorLogin(true))
+  }
+
+  logoutUser() {
+    signOut(this.auth)
+      .then( () => {
+        this.userService.resetUserService();
+        this.router.navigate(['/', 'login']);
+      })
+      .catch( err => console.log(err)); 
+  }
+
+  async getUserProfile() {
+    const profile = doc(this.fstoreService.getFirestore(), 'usuario', this.userService.getUid());
+    const profileData = await getDoc(profile);
+    this.userService.setUserProfile(profileData.data());
   }
 
 }

@@ -8,7 +8,6 @@ import { NopagefoundComponent } from './components/nopagefound/nopagefound.compo
 import { UserService } from './services/user.service';
 
 
-
 @NgModule({
   declarations: [
     NopagefoundComponent
