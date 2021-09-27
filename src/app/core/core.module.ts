@@ -8,7 +8,6 @@ import { UserService } from './services/user.service';
 import { DashboardModule } from '../dashboard/dashboard.module';
 
 
-
 @NgModule({
   declarations: [
     NopagefoundComponent

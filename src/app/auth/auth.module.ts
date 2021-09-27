@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthService } from './services/auth.service';
 import { FirestoreService } from '../core/services/firestore.service';
 import { RegisterCompleteComponent } from './components/register-complete/register-complete.component';
+import { UserService } from '../core/services/user.service';
 
 
 @NgModule({
@@ -29,6 +30,6 @@ import { RegisterCompleteComponent } from './components/register-complete/regist
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [FirebaseService, AuthService, FirestoreService]
+  providers: [FirebaseService, AuthService, FirestoreService, UserService]
 })
 export class AuthModule { }

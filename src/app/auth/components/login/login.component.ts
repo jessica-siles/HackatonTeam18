@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,8 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   loading: boolean = false;
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true
-    console.log(this.form.value);
+    this.authService.loginUser(this.form.value);
     setTimeout(() => {
       this.loading = false
     }, 1000);
