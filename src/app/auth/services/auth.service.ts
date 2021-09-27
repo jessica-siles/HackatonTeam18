@@ -35,28 +35,30 @@ export class AuthService {
       .then(userCredential => {
         this.registerProfile(data, userCredential.user.uid);
       })
-      .catch( err => {
+      .catch(err => {
+        console.log(err);
         this.router.navigate(['/', 'login'])
       })
   }
 
   async registerProfile({ username, password, linkedin, country, description, rol, repository }: AccountModel, uid: string) {
-      await setDoc(doc(this.fstoreService.getFirestore(), 'usuario', uid),   {
-        username,
-        password,
-        linkedin,
-        country,
-        description,
-        rol, 
-        [rol === 'user' ? 'repository' : 'webpage']: repository
-      })
-      .then( res => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: ''}}))
-      .catch( err => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: err}}));
+    await setDoc(doc(this.fstoreService.getFirestore(), 'usuario', uid), {
+      username,
+      password,
+      linkedin,
+      country,
+      description,
+      rol,
+      [rol === 'user' ? 'repository' : 'webpage']: repository
+    })
+      .then(res => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: '' } }))
+      .catch(err => this.router.navigate(['/', 'confirmation'], { queryParams: { status: true, error: err } }));
   }
 
-  loginUser({ user, password }: any) {
-    signInWithEmailAndPassword(this.auth, user, password)
-      .then( (userCredential: any) => {
+  loginUser({ email, password }: any) {
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential: any) => {
+        console.log(userCredential);
         this.userService.setErrorLogin(false);
         this.userService.setLoggenStatus(true);
         this.userService.setUid(userCredential.user.uid);
@@ -64,16 +66,16 @@ export class AuthService {
         this.getUserProfile();
         this.router.navigate(['/', 'bootcamps']);
       })
-      .catch( err => this.userService.setErrorLogin(true))
+      .catch(err => this.userService.setErrorLogin(true))
   }
 
   logoutUser() {
     signOut(this.auth)
-      .then( () => {
+      .then(() => {
         this.userService.resetUserService();
         this.router.navigate(['/', 'login']);
       })
-      .catch( err => console.log(err)); 
+      .catch(err => console.log(err));
   }
 
   async getUserProfile() {

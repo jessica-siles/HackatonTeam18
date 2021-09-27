@@ -14,7 +14,7 @@ export class UserService {
     loginError: false,
     profile: {},
     uid: '',
-    token: { }
+    token: {}
   }
 
   getLoggedStatus(): boolean {
@@ -53,7 +53,7 @@ export class UserService {
   setUserConfStorage(data: any) {
     this.user = data;
     if (this.user.loggedIn) {
-      this.router.navigate(['/','bootcamps']);
+      this.router.navigate(['/', 'bootcamps']);
     }
   }
 
@@ -75,7 +75,7 @@ export class UserService {
       loginError: false,
       profile: {},
       uid: '',
-      token: { }
+      token: {}
     };
     localStorage.removeItem(this.db);
   }

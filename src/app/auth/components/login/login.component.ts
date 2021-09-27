@@ -17,17 +17,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      user: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      email: ['prueba@email.com', [Validators.required, Validators.email]],
+      password: ['123456', [Validators.required]]
     })
   }
 
   login() {
     this.loading = true
     this.authService.loginUser(this.form.value);
-    setTimeout(() => {
-      this.loading = false
-    }, 1000);
+    this.loading = false
   }
 
 }
