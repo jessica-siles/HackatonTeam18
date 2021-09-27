@@ -53,7 +53,7 @@ export class UserService {
   setUserConfStorage(data: any) {
     this.user = data;
     if (this.user.loggedIn) {
-      this.router.navigate(['/', 'bootcamps']);
+      this.router.navigate(['/', 'subscriptions']);
     }
   }
 
@@ -69,6 +69,14 @@ export class UserService {
     localStorage.setItem(this.db, JSON.stringify({ user }));
   }
 
+  currentUser() {
+    try {
+      const { user } = JSON.parse(localStorage.getItem(this.db) || '{}');
+      return user
+    } catch (e) {
+      return null
+    }
+  }
   resetUserService() {
     this.user = {
       loggedIn: false,

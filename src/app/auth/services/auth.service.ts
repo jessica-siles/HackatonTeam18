@@ -7,7 +7,6 @@ import {
   signOut,
 } from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
-import { single } from 'rxjs/operators';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -58,13 +57,13 @@ export class AuthService {
   loginUser({ email, password }: any) {
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential: any) => {
-        console.log(userCredential);
         this.userService.setErrorLogin(false);
         this.userService.setLoggenStatus(true);
-        this.userService.setUid(userCredential.user.uid);
         this.userService.setToken(userCredential.user['stsTokenManager']);
-        this.getUserProfile();
-        this.router.navigate(['/', 'bootcamps']);
+        this.userService.setUid(userCredential.user.uid);
+        this.getUserProfile().then(res => {
+          this.router.navigate(['/', 'subscriptions']);
+        });
       })
       .catch(err => this.userService.setErrorLogin(true))
   }
@@ -83,5 +82,23 @@ export class AuthService {
     const profileData = await getDoc(profile);
     this.userService.setUserProfile(profileData.data());
   }
+  redirectLogin() {
+
+  }
+  checkSession = (redirect = true) => {
+    return new Promise((resolve, reject) => {
+      if (this.userService.getLoggedStatus()) {
+        resolve(true);
+      } else {
+        redirect ? this.redirectLogin() : null;
+        reject(false);
+      }
+    }
+    );
+  };
+
+
 
 }
+
+

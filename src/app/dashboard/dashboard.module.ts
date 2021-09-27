@@ -9,6 +9,8 @@ import { DashboardLogsComponent } from './components/dashboard-logs/dashboard-lo
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { SharedModule } from '../shared/shared.module';
+import { DashboardBootcampsEmpresaComponent } from './components/dashboard-bootcamps-empresa/dashboard-bootcamps-empresa.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { SharedModule } from '../shared/shared.module';
     ContentDashboardComponent,
     DashboardSubscriptionsComponent,
     DashboardInscriptionsComponent,
-    DashboardLogsComponent
+    DashboardLogsComponent,
+    DashboardBootcampsEmpresaComponent
   ],
   imports: [
     // BrowserModule,
@@ -25,7 +28,8 @@ import { SharedModule } from '../shared/shared.module';
     DashboardRoutingModule,
     InfiniteScrollModule,
     NgxSpinnerModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   exports: [
     CommonModule,
