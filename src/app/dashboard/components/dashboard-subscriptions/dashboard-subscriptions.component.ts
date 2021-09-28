@@ -15,8 +15,6 @@ export class DashboardSubscriptionsComponent implements OnInit {
 
   inscripcionesArray: any[] = [];
 
-  // userArray : any[] = [];
-
   EmpresasArray: any[] = [];
   validRoles = ['user', 'company']
   logueado: string = 'user'
@@ -32,15 +30,6 @@ export class DashboardSubscriptionsComponent implements OnInit {
     this.getBootcamps()
   }
 
-  // getBootcampsInscripciones(){
-  //   this.firestoreService.getInscripciones().then(e => {
-  //     e.forEach((doc: any) => {
-  //       this.inscripcionesArray.push(doc.data());
-
-  //     })
-  //     this.getBootcamps();
-  //   })
-  // }
 
   async getBootcamps() {
     let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);
@@ -50,16 +39,19 @@ export class DashboardSubscriptionsComponent implements OnInit {
 
 
       bootcamps.forEach((bootcamp: any) => {
+        
         this.firestoreService.getInscripcion(bootcamp.id).then( inscripcion => {
-
-          // this.userArray.push(inscripcion.docs[0].data)
-
-          if(inscripcion.docs[0].data().idUsuario == infoUser.user.uid &&  inscripcion.docs[0].data().estado == true){
-            bootcamp.asistio = 'Asistido'
-          }else{
-            bootcamp.asistio = 'Falta'
+              
+       
+          if(inscripcion.docs.length > 0){
+            if(inscripcion.docs[0].data().idUsuario == infoUser.user.uid &&  inscripcion.docs[0].data().estado == true){
+              bootcamp.asistio = 'Asistido'
+            }else{
+              bootcamp.asistio = 'Falta'
+            }
+  
           }
-
+         
 
           this.bootcampsArray.push({
             id: bootcamp.id,
@@ -91,7 +83,7 @@ export class DashboardSubscriptionsComponent implements OnInit {
 
     this.firestoreService
     .addInscription(bootcamps.descripcion,bootcamps.empresa,bootcamps.id,user.uid
-      ,user.profile.username,bootcamps.idEmpresa, inscripcion.docs[0].id).then(res => { this.router.navigate(['/','inscriptions'])})
+      ,user.profile.username,bootcamps.idEmpresa, inscripcion.docs[0]?.id).then(res => { this.router.navigate(['/','inscriptions'])})
     })
 
   }

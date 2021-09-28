@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
-import { Empresas } from '../../../auth/models/empresa.model';
 
 @Component({
   selector: 'app-dashboard-inscriptions',
@@ -9,10 +8,7 @@ import { Empresas } from '../../../auth/models/empresa.model';
   styleUrls: ['./dashboard-inscriptions.component.scss']
 })
 export class DashboardInscriptionsComponent implements OnInit {
-  // business: Empresas[] = [
-  //   { nombre: 'Google', descripcion: 'Bootcamp este fin de semana del 25 al 16 de octubre' },
-  //   { nombre: 'Hk', descripcion: 'Bootcamp este fin de semana del 25 al 16 de octubre' }
-  // ];
+
   constructor(private firestoreService: FirestoreService,private router: Router) { }
   inscripcionesArray: any[] = []
 
@@ -30,7 +26,6 @@ export class DashboardInscriptionsComponent implements OnInit {
           username: doc.data().username,
          });
       })
-      console.log(this.inscripcionesArray)
     })
   }
 

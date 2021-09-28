@@ -17,7 +17,7 @@ export class FirestoreService {
   }
 
   public async getBootcamps() {
-    console.log('s')
+  
     const q = query(collection(this.db, 'bootcamp')
     );
     const querySnapshot = await getDocs(q);
@@ -28,7 +28,6 @@ export class FirestoreService {
 
   public async getBootcampsPorEmpresa() {
     let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);
-    console.log(infoUser.user.uid)
 
     const q = query(collection(this.db, 'bootcamp'),where("idEmpresa","==",infoUser.user.uid));
     const querySnapshot = await getDocs(q);
@@ -39,7 +38,7 @@ export class FirestoreService {
 
   public async getInscripciones() {
     let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);
-    console.log(infoUser.user.uid)
+   
     const q = query(collection(this.db, 'inscripcion'),where("idUsuario","==",infoUser.user.uid));
     const querySnapshot = await getDocs(q);
     return querySnapshot;
@@ -47,8 +46,6 @@ export class FirestoreService {
   }
 
   public async getInscripcion(idBootcamp:any) {
-    // let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);
-    // console.log(infoUser.user.uid)
     const q = query(collection(this.db, 'inscripcion'),where("idBootcamp","==",idBootcamp));
     const querySnapshot = await getDocs(q);
     return querySnapshot;
@@ -58,7 +55,7 @@ export class FirestoreService {
 
 
   public async addBootcamps(descripcion:any,empresa:any,idempresa:any) {
-    console.log(descripcion,empresa,idempresa)
+   
     const docRef = await addDoc(collection(this.db, "bootcamp"), {
       descripcion,
       empresa,
@@ -72,7 +69,7 @@ export class FirestoreService {
   }
 
   public async deleteBootcamp(descripcion:any,empresa:any,idempresa:any,idBootcamp:any) {
-    console.log(descripcion,empresa,idempresa)
+    
     const docRef = await setDoc(doc(this.db, "bootcamp",idBootcamp), {
       descripcion,
       empresa,
@@ -86,7 +83,7 @@ export class FirestoreService {
   }
 
   public async editBootcamp(descripcion:any,empresa:any,idempresa:any,idBootcamp:any) {
-    console.log(descripcion,empresa,idempresa)
+    
     const docRef = await setDoc(doc(this.db, "bootcamp",idBootcamp), {
       descripcion,
       empresa,
@@ -95,19 +92,12 @@ export class FirestoreService {
     });
 
     return docRef
-
-
   }
-
-
 
  public async addInscription(descripcion:any,empresa:any,idBootcamp:any,
   idUsuario:any,username:any,idEmpresa:any,idInscripcion:any){
-  // console.log(descripcion,empresa,idempresa)
-
-
-
-  const docRef = await setDoc(doc(this.db, "inscripcion", idInscripcion), { //inscripcion/asdadsasdasdf4546df4d56
+  if(idInscripcion == undefined){
+    const docRef = await addDoc(collection(this.db, "inscripcion"), { 
     descripcion,
     empresa,
     idBootcamp,
@@ -118,14 +108,25 @@ export class FirestoreService {
   });
 
   return docRef
+  }
+  else{
+  const docRef = await setDoc(doc(this.db, "inscripcion", idInscripcion), { 
+    descripcion,
+    empresa,
+    idBootcamp,
+    idUsuario,
+    username,
+    idEmpresa,
+    estado:true
+  });
 
-
+  return docRef
+  }
  }
 
 
  public async cancelInscription(descripcion:any,empresa:any,idBootcamp:any,
   idUsuario:any,username:any,idEmpresa:any,idInscription:any){
-  // console.log(descripcion,empresa,idempresa)
 
   const docRef = await setDoc(doc(this.db, "inscripcion",idInscription), {
     descripcion,
