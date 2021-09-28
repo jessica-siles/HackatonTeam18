@@ -13,7 +13,6 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterComponent {
 
-  public formSubmitted: boolean = false;
   validRoles = ['user', 'company']
 
   destroy$ = new Subject();
@@ -21,13 +20,13 @@ export class RegisterComponent {
   registerAs: string = 'user';
 
   registerForm = new FormGroup({
-    username: new FormControl(null, [Validators.required, Validators.email]),
-    country: new FormControl(null, [Validators.required]),
-    linkedin: new FormControl(null, [Validators.required]),
-    repository: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required]),
-    password2: new FormControl(null, [Validators.required]),
-    description: new FormControl(null, [Validators.required])
+    username: new FormControl('', [Validators.required, Validators.email]),
+    country: new FormControl('', [Validators.required]),
+    linkedin: new FormControl('', [Validators.required]),
+    repository: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    password2: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required])
   })
 
   constructor(private router: ActivatedRoute, private authService: AuthService) {
@@ -41,10 +40,7 @@ export class RegisterComponent {
   }
 
   crearUsuario() {
-    this.formSubmitted = true;
-
     if (this.registerForm.invalid) {
-      console.log('No se pudo guardar')
       return;
     }
     this.authService.createAccount({ ...this.registerForm.value, rol: this.registerAs });
@@ -53,18 +49,30 @@ export class RegisterComponent {
 
   contrasenasNoValidas() {
     const pass1 = this.registerForm.get('password')?.value;
+    
     const pass2 = this.registerForm.get('password2')?.value;
 
-    if ((pass1 !== pass2) && this.formSubmitted) {
+    if ((pass1 !== pass2)) {
+     
       return true;
     } else {
       return false;
     }
 
   }
-  campoNoValido(campo: string): boolean {
+  emailNoValido(campo: string): boolean {
+    console.log(this.registerForm.get(campo)?.errors?.email);
+    
+    if (this.registerForm.get(campo)?.errors?.email) {
+      return true;
+    } else {
+      return false;
+    }
 
-    if (this.registerForm.get(campo)?.invalid && this.formSubmitted) {
+  }
+  validarLargoPass(): boolean {
+console.log(this.registerForm.get('password')?.value)
+    if (this.registerForm.get('password')?.value.length <= 6) {
       return true;
     } else {
       return false;
