@@ -46,6 +46,17 @@ export class FirestoreService {
 
   }
 
+  public async getInscripcion(idBootcamp:any) {
+    // let infoUser = JSON.parse(localStorage.getItem('hack-team-18')!);
+    // console.log(infoUser.user.uid)
+    const q = query(collection(this.db, 'inscripcion'),where("idBootcamp","==",idBootcamp));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+
+  }
+
+
+
   public async addBootcamps(descripcion:any,empresa:any,idempresa:any) {
     console.log(descripcion,empresa,idempresa)
     const docRef = await addDoc(collection(this.db, "bootcamp"), {
@@ -90,10 +101,13 @@ export class FirestoreService {
 
 
 
- public async addInscription(descripcion:any,empresa:any,idBootcamp:any,idUsuario:any,username:any,idEmpresa:any){
+ public async addInscription(descripcion:any,empresa:any,idBootcamp:any,
+  idUsuario:any,username:any,idEmpresa:any,idInscripcion:any){
   // console.log(descripcion,empresa,idempresa)
 
-  const docRef = await addDoc(collection(this.db, "inscripcion"), {
+
+
+  const docRef = await setDoc(doc(this.db, "inscripcion", idInscripcion), { //inscripcion/asdadsasdasdf4546df4d56
     descripcion,
     empresa,
     idBootcamp,

@@ -13,6 +13,9 @@ export class DashboardBootcampsEmpresaComponent implements OnInit {
 
   public disab = true;
   public textoDescripcion = ''
+  cardMostrado = false;
+  bootcamP:any;
+
   constructor(private firestoreService: FirestoreService,private router: Router) { }
 
   ngOnInit(): void {
@@ -40,18 +43,45 @@ export class DashboardBootcampsEmpresaComponent implements OnInit {
   // validRoles = ['user', 'company']
   // logueado :string = 'user'
 
-  bootcampsArray: any[] = []
+  bootcampsArray: any[] = [];
+  // inscriptionsArray: any[] = [];
   getBootcampsSegunEmpresa(){
+    let inscriptionsArray:any[] = [];
+    this.firestoreService.getBootcampsPorEmpresa().then(bootcamps => {
+      bootcamps.forEach((bootcamp: any) => {
 
-    this.firestoreService.getBootcampsPorEmpresa().then(e => {
-      e.forEach((doc: any) => {
-        this.bootcampsArray.push({
-          id : doc.id,
-          descripcion : doc.data().descripcion,
-          empresa :doc.data().empresa,
-          estado : doc.data().estado,
-          idEmpresa: doc.data().idEmpresa
-        });
+        this.firestoreService.getInscripcion(bootcamp.id).then( inscriptions => {
+
+          inscriptions.forEach(inscription => {
+              if(inscription.data().estado != false){
+
+                inscriptionsArray.push(inscription.data())
+              }
+          })
+          // console.log(this.inscriptionsArray)
+          this.bootcampsArray.push({
+            id : bootcamp.id,
+            descripcion : bootcamp.data().descripcion,
+            empresa :bootcamp.data().empresa,
+            estado : bootcamp.data().estado,
+            idEmpresa: bootcamp.data().idEmpresa,
+            inscripciones: inscriptionsArray
+          });
+
+          inscriptionsArray = [];
+          console.log({
+            id : bootcamp.id,
+            descripcion : bootcamp.data().descripcion,
+            empresa :bootcamp.data().empresa,
+            estado : bootcamp.data().estado,
+            idEmpresa: bootcamp.data().idEmpresa,
+            inscripciones: inscriptionsArray
+          })
+
+
+        })
+
+
 
       })
       console.log(this.bootcampsArray)
@@ -69,5 +99,8 @@ export class DashboardBootcampsEmpresaComponent implements OnInit {
     this.firestoreService.editBootcamp(bootcamp.descripcion,bootcamp.empresa,bootcamp.idEmpresa,bootcamp.id).then(e=> {
       this.router.navigate(['/','subscriptions'])
     })
+  }
+  mostrarUsers(){
+    console.log('Hola')
   }
 }

@@ -3,26 +3,51 @@
     <div class="row">
       <div class="col-xs-12">
         <ul class="list-group">
+
+
+
           <li *ngFor="let bootcamp of bootcampsArray; index as i" class="list-group-item list-group-item-action">
             <div class="card border-dark mb-3" *ngIf="bootcamp.estado === true">
+
               <div class="card-header">
                 Bootcamp
                 <span>{{ i + 1 }}</span>
               </div>
+
               <div class="card-body text-dark">
-                <!-- <h5 class="card-title">{{ bootcamp.nombre }}</h5> -->
                 <textarea class="form-control" [disabled]="disab" [(ngModel)]="bootcamp.descripcion"></textarea>
-                <button  class="btn btn-block boton mr-2" *ngIf="disab == false" (click)="confirmarEdit(bootcamp)">Confirmar</button>
+                <div class="card" style="width: 18rem;" *ngIf="cardMostrado && bootcamP == bootcamp">
+                  <div class="card-header">
+                    Participantes
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item" *ngFor="let inscripcion of bootcamp.inscripciones">
+                      {{inscripcion.username}}
+                    </li>
+
+                  </ul>
+                </div>
+                <button class="btn btn-block boton mr-2" *ngIf="disab == false"
+                  (click)="confirmarEdit(bootcamp)">Confirmar</button>
                 <div class="w-100" style="text-align: right">
-                  <button  class="btn btn-block boton mr-2" (click)="disab=!disab">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" (click)="cardMostrado = !cardMostrado; bootcamP = bootcamp">
+                    Participantes
+                  </button>
+
+
+
+
+                  <button class="btn btn-block boton mr-2" (click)="disab=!disab">
                     Editar
                   </button>
-                  <button  class="btn btn-block boton-dark ml-2" (click)="eliminarBootcamp(bootcamp)">
+                  <button class="btn btn-block boton-dark ml-2" (click)="eliminarBootcamp(bootcamp)">
                     Eliminar
                   </button>
                 </div>
               </div>
             </div>
+
           </li>
         </ul>
       </div>
